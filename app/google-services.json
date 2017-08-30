@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "368911319783",
+    "firebase_url": "https://shoongcart.firebaseio.com",
+    "project_id": "shoongcart",
+    "storage_bucket": "shoongcart.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:368911319783:android:b6e99f2334c9397d",
+        "android_client_info": {
+          "package_name": "com.example.ShoongCart"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "368911319783-lf3dju3lgvhnkkr5batj97qk6frq46te.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ShoongCart",
+            "certificate_hash": "0ce840e4faf16af6aa0ce3b491dec3dde7e6d669"
+          }
+        },
+        {
+          "client_id": "368911319783-jeo9ofiu83cjvqiga09cj7tbv9l9vaeu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfl35Iyt1vSuho78fS3I1fINc0oh1GVjs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "368911319783-jeo9ofiu83cjvqiga09cj7tbv9l9vaeu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

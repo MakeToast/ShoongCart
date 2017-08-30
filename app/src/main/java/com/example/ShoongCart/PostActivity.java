@@ -1,0 +1,101 @@
+package com.example.ShoongCart;
+
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+/**
+ * Created by choeyujin on 2017. 8. 25..
+ */
+
+public class PostActivity extends BaseActivity {
+
+    ArrayList<PostData> datas = new ArrayList<PostData>();
+    ArrayList<PostData> showdata = new ArrayList<PostData>();
+    ListView listview;
+    Button register;
+    Button show;
+
+    EditText nameet;
+    EditText nationet;
+
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference Item = database.getReference();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_post);
+
+        register = (Button) findViewById(R.id.register);
+        show = (Button) findViewById(R.id.show);
+
+        nameet = (EditText)findViewById(R.id.name) ;
+        nationet = (EditText)findViewById(R.id.nation);
+
+        datas.add(new PostData("a", "대한민국", R.drawable.korea));
+        datas.add(new PostData("b", "대한민국", R.drawable.korea));
+        datas.add(new PostData("c", "대한민국", R.drawable.korea));
+        datas.add(new PostData("d", "대한민국", R.drawable.korea));
+
+        listview = (ListView) findViewById(R.id.listview);
+
+
+        Item.child("Item").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                String name = dataSnapshot.child("name").getValue(String.class);
+                String nation = dataSnapshot.child("nation").getValue(String.class);
+                int imgid = dataSnapshot.child("imgId").getValue(Integer.class);
+                if(name != null)
+                    Log.d("b:", name);
+                showdata.add(new PostData(name, nation, imgid));
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {}
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+
+        show.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                //PostAdapter adapter = new PostAdapter(getLayoutInflater(), datas);
+                //listview.setAdapter(adapter);
+                PostAdapter adapter = new PostAdapter(getLayoutInflater(), showdata);
+                listview.setAdapter(adapter);
+            }
+        });
+        register.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                datas.add(new PostData(nameet.getText().toString(), nationet.getText().toString(), R.drawable.korea));
+                //Item = database.getReference("Item");
+                Item.child("Item").setValue(datas);
+            }
+        });
+    }
+}
