@@ -1,11 +1,13 @@
 package com.example.ShoongCart;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +38,7 @@ public class EmailPasswordActivity extends BaseActivity implements
 
     private Intent intent;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +62,10 @@ public class EmailPasswordActivity extends BaseActivity implements
 
         intent = new Intent(EmailPasswordActivity.this, PostActivity.class);
 
+        Intent login_intent= getIntent();
+        Bundle bundle = login_intent.getExtras();
+        String login = bundle.getString("Login");
+
     }
 
     // [START on_start_check_user]
@@ -68,7 +75,7 @@ public class EmailPasswordActivity extends BaseActivity implements
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUI(currentUser);
-        Toast.makeText(EmailPasswordActivity.this, "restart", Toast.LENGTH_LONG).show();
+        //Toast.makeText(EmailPasswordActivity.this, "restart", Toast.LENGTH_LONG).show();
         if(mAuth.getCurrentUser() != null) {
             if (currentUser.getEmail().equals("admin@mart.com"))
                 startActivity(intent);
@@ -99,7 +106,9 @@ public class EmailPasswordActivity extends BaseActivity implements
                             ID.child("Identification").setValue(user1);
 
                             Intent intent2 = new Intent(EmailPasswordActivity.this, MainActivity.class);
-                            intent2.putExtra("value", 0);
+                            intent2.putExtra("login", "1");
+                            intent2.putExtra("id", mEmailField.getText().toString());
+                            //intent2.putExtra("pw", mPasswordField.getText().toString());
                             setResult(RESULT_OK, intent2);
                             finish();
                         } else {
@@ -145,8 +154,13 @@ public class EmailPasswordActivity extends BaseActivity implements
                             }
 
                             Intent intent2 = new Intent(EmailPasswordActivity.this, MainActivity.class);
-                            intent2.putExtra("value", 0);
+                            intent2.putExtra("login", "1");
+                            intent2.putExtra("id", mEmailField.getText().toString());
+                            //intent2.putExtra("pw", mPasswordField.getText().toString());
                             setResult(RESULT_OK, intent2);
+                            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm.hideSoftInputFromWindow(mEmailField.getWindowToken(), 0);
+                            imm.hideSoftInputFromWindow(mPasswordField.getWindowToken(), 0);
                             finish();
                         } else {
                             // If sign in fails, display a message to the user.
@@ -169,6 +183,10 @@ public class EmailPasswordActivity extends BaseActivity implements
 
     private void signOut() {
         mAuth.signOut();
+        Intent intent2 = new Intent(EmailPasswordActivity.this, MainActivity.class);
+        intent2.putExtra("login", "0");
+        setResult(RESULT_OK, intent2);
+        finish();
         updateUI(null);
     }
 

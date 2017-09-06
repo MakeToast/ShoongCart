@@ -7,36 +7,52 @@ package com.example.ShoongCart;
 public class PostData {
 
     String name;    //이름 저장
-    String nation;   //국적 저장
-    int imgId;      //국기 이미지의 리소스 아이디
+    long price;
+    double latitude;
+    double longitude;
 
-    public PostData(String name, String nation, int imgId) {
-        this.name= name;
-        this.nation=nation;
-        this.imgId=imgId;
+
+    public PostData(String name, long price, double latitude, double longitude)
+    {
+        this.name = name;
+        this.price = price;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
-    public void setName(String name) {
+    public void setName(String name)
+    {
         this.name = name;
     }
 
-    public void setNation(String nation) {
-        this.nation = nation;
+    public void setPrice(long price)
+    {
+        this.price = price;
     }
 
-    public void setImgId(int imgId) {
-        this.imgId = imgId;
+    public void setLatitude(double latitude)
+    {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(double longitude)
+    {
+        this.longitude = longitude;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getNation() {
-        return nation;
+    public long getPrice() {
+        return price;
     }
 
-    public int getImgId() {
-        return imgId;
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude(){
+        return longitude;
     }
 }

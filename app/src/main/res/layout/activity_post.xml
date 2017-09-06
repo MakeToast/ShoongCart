@@ -1,20 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="5dp">
 
     <EditText
+        android:layout_margin="5dp"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="40dp"
         android:id="@+id/name"
+        android:hint="name"
         />
     <EditText
+        android:layout_margin="5dp"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:id="@+id/nation"/>
+        android:layout_height="40dp"
+        android:layout_below="@+id/name"
+        android:id="@+id/price"
+        android:hint="price"/>
 
+    <EditText
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/price"
+        android:id="@+id/latitude"
+        android:hint="latitude"/>
+
+    <EditText
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/latitude"
+        android:id="@+id/longitude"
+        android:hint="longitude"/>
     <Button
         android:id="@+id/register"
         android:layout_width="wrap_content"
@@ -22,6 +42,7 @@
         android:text="Register"
         android:textStyle="bold"
         android:gravity="center"
+        android:layout_below="@+id/longitude"
         android:background="#dddddd"/>
     <Button
         android:id="@+id/show"
@@ -29,11 +50,15 @@
         android:layout_height="wrap_content"
         android:text="Show"
         android:textStyle="bold"
+        android:layout_below="@+id/longitude"
+        android:layout_toRightOf="@+id/register"
         android:gravity="center"
         android:background="#dddddd" />
+
     <ListView
         android:id="@+id/listview"
+        android:layout_below="@+id/register"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="350dp"
         android:layout_marginTop="5dp"/>
-</LinearLayout>
+</RelativeLayout>

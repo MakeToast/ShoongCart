@@ -42,12 +42,14 @@ public class PostAdapter extends BaseAdapter{
         if(view == null)
             view = inflater.inflate(R.layout.list_row, null);
         TextView text_name= (TextView)view.findViewById(R.id.text_name);
-        TextView text_nation= (TextView)view.findViewById(R.id.text_nation);
-        ImageView img_flag= (ImageView)view.findViewById(R.id.img_flag);
+        TextView text_price= (TextView)view.findViewById(R.id.text_price);
+        TextView text_lati= (TextView)view.findViewById(R.id.text_latitude);
+        TextView text_longi= (TextView)view.findViewById(R.id.text_longitude);
 
         text_name.setText( datas.get(position).getName() );
-        text_nation.setText( datas.get(position).getNation() );
-        img_flag.setImageResource( datas.get(position).getImgId() );
+        text_price.setText(String.valueOf(datas.get(position).getPrice()));
+        text_lati.setText(String.valueOf(datas.get(position).getLatitude()));
+        text_longi.setText(String.valueOf(datas.get(position).getLongitude()));
 
         return view;
     }

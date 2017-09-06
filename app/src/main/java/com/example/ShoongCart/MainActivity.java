@@ -1,6 +1,7 @@
 package com.example.ShoongCart;
 
 import android.Manifest;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -42,14 +43,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Preview mPreview;
     private EditText editText;
 
-    private TextView email;
-    private TextView pw;
-
-
     private DatabaseReference mDatabase;
     private DatabaseReference mFirebaseDatabase;
     static double latitude, longitude;
 
+    String num;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         checkDangerousPermissions();
@@ -57,6 +55,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawOnTop mDraw = new DrawOnTop(this);
 
         setContentView(R.layout.activity_main);
+        Intent intent = new Intent(MainActivity.this, BluetoothActivity.class);
+
         addContentView(mDraw, new DrawerLayout.LayoutParams(DrawerLayout.LayoutParams.WRAP_CONTENT,
                 DrawerLayout.LayoutParams.WRAP_CONTENT));
 
@@ -105,9 +105,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mPreview = (Preview) findViewById(R.id.camera_preview);
         editText = (EditText) findViewById(R.id.editText);
 
-        email = (TextView) findViewById(R.id.drawer_email);
-        pw = (TextView)findViewById(R.id.drawer_pw);
-
         mFirebaseDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase = mFirebaseDatabase.child("product");
 
@@ -122,14 +119,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return false;
             }
         });
+
     }
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        int num = data.getIntExtra("value", -1);
-        MenuItem menu = (MenuItem)findViewById(R.id.nav_send);
-        if(num == 0)
-            menu.setTitle("Logout");
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+            if(resultCode == RESULT_OK) {
+                num = data.getStringExtra("login");
+                NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+                Menu nv = navigationView.getMenu();
+                MenuItem item = nv.findItem(R.id.nav_send);
+                View nav_header_view = navigationView.getHeaderView(0);
+                TextView email = (TextView) nav_header_view.findViewById(R.id.drawer_email);
+
+                if (num.equals("1")) {
+                    item.setTitle("Logout");
+                    email.setText(data.getStringExtra("id"));
+                }
+                else {
+                    item.setTitle("Login");
+                    email.setText("Email");
+                }
+            }
     }
 
     public void searchStart() {
@@ -258,8 +271,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
+
             Intent intent = new Intent(MainActivity.this, EmailPasswordActivity.class);
-            startActivity(intent);
+            intent.setClass(MainActivity.this, EmailPasswordActivity.class);
+            intent.putExtra("login", item.getTitle().toString());
+            startActivityForResult(intent, 0);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
