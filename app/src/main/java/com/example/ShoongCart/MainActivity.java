@@ -1,7 +1,6 @@
 package com.example.ShoongCart;
 
 import android.Manifest;
-import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -11,9 +10,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.view.menu.MenuView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -25,7 +21,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,10 +29,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private Preview mPreview;
@@ -48,6 +41,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     static double latitude, longitude;
 
     String num;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         checkDangerousPermissions();
@@ -55,8 +50,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawOnTop mDraw = new DrawOnTop(this);
 
         setContentView(R.layout.activity_main);
-        Intent intent = new Intent(MainActivity.this, BluetoothActivity.class);
 
+        startActivity(new Intent(MainActivity.this, BluetoothActivity.class));
         addContentView(mDraw, new DrawerLayout.LayoutParams(DrawerLayout.LayoutParams.WRAP_CONTENT,
                 DrawerLayout.LayoutParams.WRAP_CONTENT));
 
@@ -283,3 +278,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 }
+
