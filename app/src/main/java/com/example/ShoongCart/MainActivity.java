@@ -167,14 +167,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
     }
-
+/*
     protected void onStart()
     {
         super.onStart();
         addContentView(mDraw, new DrawerLayout.LayoutParams(DrawerLayout.LayoutParams.WRAP_CONTENT,DrawerLayout.LayoutParams.WRAP_CONTENT));
         //checkBluetooth();
     }
-/*
+
 
     BluetoothDevice getDeviceFromBondedList(String name) {
         // BluetoothDevice : 페어링 된 기기 목록을 얻어옴.
