@@ -96,9 +96,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+        addContentView(mDraw, new DrawerLayout.LayoutParams(DrawerLayout.LayoutParams.WRAP_CONTENT,DrawerLayout.LayoutParams.WRAP_CONTENT));
 
-
-//        addContentView(mDraw, new DrawerLayout.LayoutParams(DrawerLayout.LayoutParams.WRAP_CONTENT,DrawerLayout.LayoutParams.WRAP_CONTENT));
         EnableRuntimePermission();
 
         mDraw = new DrawOnTop(this);
