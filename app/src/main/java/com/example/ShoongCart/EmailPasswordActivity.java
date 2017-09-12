@@ -20,8 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class EmailPasswordActivity extends BaseActivity implements
-        View.OnClickListener {
+public class EmailPasswordActivity extends BaseActivity implements View.OnClickListener {
 
     private static final String TAG = "EmailPassword";
 
@@ -37,7 +36,6 @@ public class EmailPasswordActivity extends BaseActivity implements
     private DatabaseReference ID;
 
     private Intent intent;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
