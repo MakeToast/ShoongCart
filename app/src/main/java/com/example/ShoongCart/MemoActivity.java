@@ -42,10 +42,8 @@ public class MemoActivity extends AppCompatActivity {
             case R.id.delete_btn : {
                 mTextFileManager.delete();
                 mMemoEdit.setText("");
-                Toast.makeText(MemoActivity.this, "뒤로가기", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(MemoActivity.this, MainActivity.class);
-                setResult(RESULT_OK, intent);
-                finish();
+                Toast.makeText(MemoActivity.this, "삭제", Toast.LENGTH_LONG).show();
+                break;
             }
         }
     }
