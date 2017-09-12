@@ -60,9 +60,6 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
 
         intent = new Intent(EmailPasswordActivity.this, PostActivity.class);
 
-        Intent login_intent= getIntent();
-        Bundle bundle = login_intent.getExtras();
-        String login = bundle.getString("Login");
 
     }
 
@@ -106,7 +103,6 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
                             Intent intent2 = new Intent(EmailPasswordActivity.this, MainActivity.class);
                             intent2.putExtra("login", "1");
                             intent2.putExtra("id", mEmailField.getText().toString());
-                            //intent2.putExtra("pw", mPasswordField.getText().toString());
                             setResult(RESULT_OK, intent2);
                             finish();
                         } else {
