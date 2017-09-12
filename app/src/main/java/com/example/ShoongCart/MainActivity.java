@@ -9,7 +9,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -30,20 +29,12 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothSocket;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.Set;
-import java.util.UUID;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -106,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         mFirebaseDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase = mFirebaseDatabase.child("product");
+        mDatabase = mFirebaseDatabase.child("product").child("food");
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
