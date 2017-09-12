@@ -25,7 +25,7 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
     private static final String TAG = "EmailPassword";
 
     private TextView mStatusTextView;
-    private TextView mDetailTextView;
+    //private TextView mDetailTextView;
     private EditText mEmailField;
     private EditText mPasswordField;
 
@@ -44,7 +44,7 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
 
         // Views
         mStatusTextView = (TextView) findViewById(R.id.status);
-        mDetailTextView = (TextView) findViewById(R.id.detail);
+        //mDetailTextView = (TextView) findViewById(R.id.detail);
         mEmailField = (EditText) findViewById(R.id.field_email);
         mPasswordField = (EditText) findViewById(R.id.field_password);
 
@@ -240,7 +240,7 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
         if (user != null) {
             mStatusTextView.setText(getString(R.string.emailpassword_status_fmt,
                     user.getEmail(), user.isEmailVerified()));
-            mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
+            //mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
 
             findViewById(R.id.email_password_buttons).setVisibility(View.GONE);
             findViewById(R.id.email_password_fields).setVisibility(View.GONE);
@@ -249,7 +249,7 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
             findViewById(R.id.verify_email_button).setEnabled(!user.isEmailVerified());
         } else {
             mStatusTextView.setText(R.string.signed_out);
-            mDetailTextView.setText(null);
+            //mDetailTextView.setText(null);
 
             findViewById(R.id.email_password_buttons).setVisibility(View.VISIBLE);
             findViewById(R.id.email_password_fields).setVisibility(View.VISIBLE);

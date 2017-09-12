@@ -59,7 +59,7 @@ public class SplashActivity extends Activity {
             e.printStackTrace();
         }
         startActivity(new Intent(this, MainActivity.class));
-        finish();
+        moveTaskToBack(true);
     }
 
 
@@ -76,19 +76,6 @@ public class SplashActivity extends Activity {
             }
         }
         return selectedDevice;
-    }
-
-    // 문자열 전송하는 함수(쓰레드 사용 x)
-    void sendData(String msg) {
-        msg += mStrDelimiter;  // 문자열 종료표시 (\n)
-        try{
-            // getBytes() : String을 byte로 변환
-            // OutputStream.write : 데이터를 쓸때는 write(byte[]) 메소드를 사용함. byte[] 안에 있는 데이터를 한번에 기록해 준다.
-            mOutputStream.write(msg.getBytes());  // 문자열 전송.
-        }catch(Exception e) {  // 문자열 전송 도중 오류가 발생한 경우
-            Toast.makeText(getApplicationContext(), "데이터 전송중 오류가 발생", Toast.LENGTH_LONG).show();
-            // finish();  // App 종료
-        }
     }
 
     //  connectToSelectedDevice() : 원격 장치와 연결하는 과정을 나타냄.
@@ -209,52 +196,9 @@ public class SplashActivity extends Activity {
         mDevices = mBluetoothAdapter.getBondedDevices();
         mPariedDeviceCount = mDevices.size();
 
-        if(mPariedDeviceCount == 0 ) { // 페어링된 장치가 없는 경우.
-            Toast.makeText(getApplicationContext(), "페어링된 장치가 없습니다.", Toast.LENGTH_LONG).show();
-            finish(); // App 종료.
-        }
-        // 페어링된 장치가 있는 경우.
-       /* AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("블루투스 장치 선택");
-
-        // 각 디바이스는 이름과(서로 다른) 주소를 가진다. 페어링 된 디바이스들을 표시한다.
-        List<String> listItems = new ArrayList<String>();
-        for(BluetoothDevice device : mDevices) {
-            // device.getName() : 단말기의 Bluetooth Adapter 이름을 반환.
-            listItems.add(device.getName());
-        }
-        listItems.add("취소");  // 취소 항목 추가.
-
-
-        // CharSequence : 변경 가능한 문자열.
-        // toArray : List형태로 넘어온것 배열로 바꿔서 처리하기 위한 toArray() 함수.
-        final CharSequence[] items = listItems.toArray(new CharSequence[listItems.size()]);
-        // toArray 함수를 이용해서 size만큼 배열이 생성 되었다.
-        listItems.toArray(new CharSequence[listItems.size()]);
-
-        builder.setItems(items, new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int item) {*/
-        // TODO Auto-generated method stub
-        //  if(item == mPariedDeviceCount) { // 연결할 장치를`  선택하지 않고 '취소' 를 누른 경우.
-        //      Toast.makeText(getApplicationContext(), "연결 할 장치를 선택하지 않았습니다.", Toast.LENGTH_LONG).show();
-        //      finish();
-        //  }
-        //   else { // 연결할 장치를 선택한 경우, 선택한 장치와 연결을 시도함.
-        //connectToSelectedDevice(items[item].toString());
-        //connectToSelectedDevice("98:D3:31:FC:6E:2F".toString());
         connectToSelectedDevice("HC-06".toString());
-        Toast.makeText(getApplicationContext(), "연결 성공", Toast.LENGTH_LONG).show();
-        // }
-        //}
+        //Toast.makeText(getApplicationContext(), "연결 성공", Toast.LENGTH_LONG).show();
 
-        //}
-        //  );
-
-       /* builder.setCancelable(false);  // 뒤로 가기 버튼 사용 금지.
-        AlertDialog alert = builder.create();
-        alert.show();*/
     }
 
 
