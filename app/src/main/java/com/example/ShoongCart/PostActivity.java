@@ -31,7 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 public class PostActivity extends BaseActivity {
 
     ArrayList<PostData> datas = new ArrayList<PostData>();
-    ArrayList<PostData> showdata = new ArrayList<PostData>();
+
     ListView listview;
     Button register;
     Button show;

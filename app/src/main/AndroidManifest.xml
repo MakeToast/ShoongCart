@@ -26,20 +26,15 @@
         <activity
             android:name=".MainActivity"
             android:label="ShoongCart"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
         <activity android:name=".LoginActivity"></activity>
         <activity android:name=".PostActivity"></activity>
         <activity android:name=".EmailPasswordActivity"></activity>
-        <activity android:name=".MemoActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".MemoActivity"></activity>
+        <activity android:name=".db.ListActivity"></activity>
 
         <activity
             android:name=".MemoInsertActivity" />

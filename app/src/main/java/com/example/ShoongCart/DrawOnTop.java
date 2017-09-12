@@ -48,14 +48,17 @@ public class DrawOnTop extends View implements SensorEventListener {
     float[] m_rotation = new float[9];
     float[] m_result_data = new float[3];
 
-    Bitmap horse;
+    Bitmap horse, coupon;
+    Building list[] = new Building[30];
 
 
     public DrawOnTop(Context context) {
         super(context);
         mContext = (MainActivity) context;
         initSensor(context);
-        horse = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+        initBuilding();
+        horse = BitmapFactory.decodeResource(getResources(), R.drawable.present);
+        coupon = BitmapFactory.decodeResource(getResources(), R.drawable.coupon);
 
         // TODO Auto-generated constructor stub
     }
@@ -100,14 +103,14 @@ public class DrawOnTop extends View implements SensorEventListener {
         dist = dist * 1.609344;    // 단위 mile 에서 km 변환.
         dist = dist * 1000.0;      // 단위  km 에서 m 로 변환
 
-        if (degree > 45 && degree < 135 && dist < 200 && dist > 0) {
+        if (degree > 45 && degree < 135) {
             degree = 1 - (degree - 45) / 90;
-            ex_left = (int) (width * degree) - (120 - 5 * 10); //list[i].name.length() = 5 레지던스홀로 했을때
-            ex_right = (int) (width * degree + 5 * 22);
+            ex_left = (int) (width * degree) - (120 - 4 * 10); //list[i].name.length() = 5 레지던스홀로 했을때
+            ex_right = (int) (width * degree + 4 * 22);
 
             canvas.drawBitmap(horse, ex_left, height / 4, paint);
-            canvas.drawText((int) dist + "m)", (int) (width * degree), (int) (height / 2.5), paint); // 텍스트 표시
-            Log.d("distance", ": " + dist+"degree: "+ degree);
+            canvas.drawText((int) dist + "m 앞으로", (int) (width * degree), (int) (height / 2.5), paint); // 텍스트 표시
+            Log.d("distance", ": " + dist + "degree: " + degree);
         }
 
         try {
@@ -116,6 +119,123 @@ public class DrawOnTop extends View implements SensorEventListener {
             e.printStackTrace();
         }
         super.onDraw(canvas);
+
+
+        for (int i = 0; i <= 26; i++) {
+            dx = list[i].latitude - latitude;
+            dy = list[i].longitude - longitude;
+            rad = Math.atan2(dx, dy);
+            degree = (rad * 180) / Math.PI;
+            a = m_result_data[0] + 90;
+            if (degree + a < 360) {
+                degree += a;
+            } else if (degree + a >= 360) {
+                degree = degree + a - 360;
+            }
+            theta = longitude - list[i].longitude;
+            dist = Math.sin(deg2rad(latitude)) * Math.sin(deg2rad(list[i].latitude)) + Math.cos(deg2rad(latitude))
+                    * Math.cos(deg2rad(list[i].latitude)) * Math.cos(deg2rad(theta));
+            dist = Math.acos(dist);
+            dist = rad2deg(dist);
+
+            dist = dist * 60 * 1.1515;
+            dist = dist * 1.609344;    // 단위 mile 에서 km 변환.
+            dist = dist * 1000.0;      // 단위  km 에서 m 로 변환
+
+            if (degree > 45 && degree < 135 && dist < 50) {
+                degree = 1 - (degree - 45) / 90;
+                list[i].left = (int) (width * degree) - (120 - 4* 10);
+                list[i].right = (int) (width * degree + 4 * 22);
+
+                canvas.drawBitmap(coupon, list[i].left, height / 4, paint);
+                canvas.drawText((int) dist + "m 앞으로", (int) (width * degree), (int) (height / 2.5), paint); // 텍스트 표시
+            }
+        }
+        super.onDraw(canvas);
+    }
+
+    private void initBuilding() {
+        for (int i = 0; i < list.length; i++) {
+            list[i] = new Building();
+        }
+        list[0].name = "문화관";
+        list[0].latitude = 37.496471;
+        list[0].longitude = 126.954306;
+        list[4].name = "테니스장";
+        list[4].latitude = 37.496869;
+        list[4].longitude = 126.954897;
+        list[8].name = "경상관";
+        list[8].latitude = 37.496494;
+        list[8].longitude = 126.955171;
+        list[12].name = "안익태기념관";
+        list[12].latitude = 37.495730;
+        list[12].longitude = 126.955035;
+        list[16].name = "백마관";
+        list[16].latitude = 37.497811;
+        list[16].longitude = 126.956151;
+        list[20].name = "대운동장";
+        list[20].latitude = 37.497258;
+        list[20].longitude = 126.956124;
+        list[24].name = "베어드홀";
+        list[24].latitude = 37.496479;
+        list[24].longitude = 126.956290;
+        list[1].name = "형남공학관";
+        list[1].latitude = 37.495755;
+        list[1].longitude = 126.956167;
+        list[5].name = "교육관";
+        list[5].latitude = 37.497806;
+        list[5].longitude = 126.956832;
+        list[9].name = "학생회관";
+        list[9].latitude = 37.497065;
+        list[9].longitude = 126.956902;
+        list[13].name = "벤처중소기업센터";
+        list[13].latitude = 37.497533;
+        list[13].longitude = 126.957503;
+        list[17].name = "진리관";
+        list[17].latitude = 37.496890;
+        list[17].longitude = 126.957444;
+        list[21].name = "한국기독교박물관";
+        list[21].latitude = 37.495549;
+        list[21].longitude = 126.957026;
+        list[25].name = "조만식기념관";
+        list[25].latitude = 37.497171;
+        list[25].longitude = 126.958399;
+        list[2].name = "한경직기념관";
+        list[2].latitude = 37.495586;
+        list[2].longitude = 126.957594;
+        list[6].name = "웨스트민스터홀";
+        list[6].latitude = 37.496803;
+        list[6].longitude = 126.958442;
+        list[10].name = "신양관";
+        list[10].latitude = 37.496382;
+        list[10].longitude = 126.958227;
+        list[14].name = "중앙도서관";
+        list[14].latitude = 37.496242;
+        list[14].longitude = 126.958603;
+        list[18].name = "미래관";
+        list[18].latitude = 37.495578;
+        list[18].longitude = 126.958496;
+        list[22].name = "농구장";
+        list[22].latitude = 37.495374;
+        list[22].longitude = 126.958432;
+        list[26].name = "연구관";
+        list[26].latitude = 37.496264;
+        list[26].longitude = 126.959210;
+        list[3].name = "전산관";
+        list[3].latitude = 37.495451;
+        list[3].longitude = 126.959484;
+        list[7].name = "창의관";
+        list[7].latitude = 37.494702;
+        list[7].longitude = 126.959269;
+        list[11].name = "커밍홀";
+        list[11].latitude = 37.495906;
+        list[11].longitude = 126.959902;
+        list[15].name = "정보과학관";
+        list[15].latitude = 37.494557;
+        list[15].longitude = 126.959677;
+        list[19].name = "글로벌브레인홀";
+        list[19].latitude = 37.495706;
+        list[19].longitude = 126.960444;
     }
 
     private void initSensor(Context context) {

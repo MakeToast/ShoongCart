@@ -24,6 +24,8 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
 
     private static final String TAG = "EmailPassword";
 
+    //static public String usrID = null;
+
     private TextView mStatusTextView;
     //private TextView mDetailTextView;
     private EditText mEmailField;
@@ -34,7 +36,7 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
     // [END declare_auth]
     private FirebaseDatabase database;
     private DatabaseReference ID;
-
+    public static DatabaseReference mList;
     private Intent intent;
 
     @Override
@@ -98,6 +100,7 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
                             updateUI(user);
                             User user1 = new User("anvvvv", user.getEmail());
                             ID = database.getReference(user.getUid());
+                            mList = database.getReference(user.getUid());
                             ID.child("Identification").setValue(user1);
 
                             Intent intent2 = new Intent(EmailPasswordActivity.this, MainActivity.class);
@@ -106,19 +109,13 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
                             setResult(RESULT_OK, intent2);
                             finish();
                         } else {
-                            // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(EmailPasswordActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EmailPasswordActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
-
-                        // [START_EXCLUDE]
                         hideProgressDialog();
-                        // [END_EXCLUDE]
                     }
                 });
-        // [END create_user_with_email]
     }
 
     private void signIn(String email, String password) {
@@ -129,7 +126,6 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
 
         showProgressDialog();
 
-        // [START sign_in_with_email]
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -150,7 +146,6 @@ public class EmailPasswordActivity extends BaseActivity implements View.OnClickL
                             Intent intent2 = new Intent(EmailPasswordActivity.this, MainActivity.class);
                             intent2.putExtra("login", "1");
                             intent2.putExtra("id", mEmailField.getText().toString());
-                            //intent2.putExtra("pw", mPasswordField.getText().toString());
                             setResult(RESULT_OK, intent2);
                             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                             imm.hideSoftInputFromWindow(mEmailField.getWindowToken(), 0);

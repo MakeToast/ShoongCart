@@ -32,7 +32,7 @@ class Preview extends SurfaceView implements SurfaceHolder.Callback {
         try{
             if (mCamera == null) {
                 mCamera = Camera.open();
-                mCamera.setDisplayOrientation(90);
+                //      mCamera.setDisplayOrientation(90);
             }
 
             mHolder = getHolder();
@@ -58,8 +58,6 @@ class Preview extends SurfaceView implements SurfaceHolder.Callback {
     public void surfaceCreated(SurfaceHolder holder) {
 
         try{
-
-
 
             if( mCamera == null){
                 mCamera = Camera.open();
