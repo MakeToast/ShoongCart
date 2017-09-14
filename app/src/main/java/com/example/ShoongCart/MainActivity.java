@@ -264,6 +264,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                                 ID = data.substring(0);
                                                 Log.d("dd:", ID);
                                             datas.add(ID);
+                                            EmailPasswordActivity.mList.child("List").setValue(datas);
                                             }
                                     });
                                 }
