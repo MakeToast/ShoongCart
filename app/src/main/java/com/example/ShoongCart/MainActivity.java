@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     BluetoothSocket mSocket = null;
     OutputStream mOutputStream = null;
     InputStream mInputStream = null;
-    String mStrDelimiter = "\n";
+
     char mCharDelimiter =  '\n';
 
     Thread mWorkerThread = null;
@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         mDatabase = mFirebaseDatabase.child("product").child("food");
 
-
+        //EmailPasswordActivity.mList.
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         criteria = new Criteria();
@@ -262,7 +262,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                         @Override
                                         public void run() {
                                                 ID = data.substring(0);
-                                            Log.d("dd:", ID+"+"+data);
+                                                Log.d("dd:", ID);
+                                            datas.add(ID);
                                             }
                                     });
                                 }
@@ -420,33 +421,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         locationManager = (LocationManager)getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
         GpsStatus = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
-
-    private void checkDangerousPermissions() {
-        String[] permissions = {
-                Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.INTERNET
-        };
-
-        int permissionCheck = PackageManager.PERMISSION_GRANTED;
-        for (int i = 0; i < permissions.length; i++) {
-            permissionCheck = ContextCompat.checkSelfPermission(this, permissions[i]);
-            if (permissionCheck == PackageManager.PERMISSION_DENIED) {
-                break;
-            }
-        }
-
-        if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
-            //Toast.makeText(this, "권한 있음", Toast.LENGTH_LONG).show();
-        } else {
-            //Toast.makeText(this, "권한 없음", Toast.LENGTH_LONG).show();
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, permissions[0])) {
-                // Toast.makeText(this, "권한 설명 필요함.", Toast.LENGTH_LONG).show();
-            } else {
-                ActivityCompat.requestPermissions(this, permissions, 1);
-            }
-        }
-    }
-
 
     @Override
     public void onBackPressed() {

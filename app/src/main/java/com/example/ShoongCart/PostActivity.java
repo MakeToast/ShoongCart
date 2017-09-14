@@ -59,26 +59,7 @@ public class PostActivity extends BaseActivity {
 
         listview = (ListView) findViewById(R.id.listview);
 /*
-        Item.child("productsss").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String name = dataSnapshot.child("name").getValue(String.class);
-                long price = dataSnapshot.child("price").getValue(Long.class);
-                double latitude = dataSnapshot.child("latitude").getValue(Double.class);
-                double longitude = dataSnapshot.child("longitude").getValue(Double.class);
-                if(name != null){
-                    datas.add(new PostData(name, price, latitude, longitude));
-                         Log.d("aa", " : no name");
-                }
-                Log.d("aa", " : "+datas.size());
-            }
 
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-            }
-        });
-*/
 
         Item.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
